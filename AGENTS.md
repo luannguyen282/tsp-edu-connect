@@ -35,5 +35,6 @@ Task control:
 - `node scripts/ai-task.mjs set <TASK_ID> IN_PROGRESS`
 - implement + validate
 - `node scripts/ai-task.mjs set <TASK_ID> DONE "<evidence>"`
+- After each completed task, review its diff, commit it, and push the commit to the configured remote before starting the next task.
 
 Do not hand-edit `.ai/progress/current.md`; it is generated from the registry.
