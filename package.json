@@ -13,7 +13,7 @@
     "setup:ponytail": "node scripts/setup-ponytail.mjs --install",
     "ai:check": "node scripts/ai-task.mjs check",
     "ai:next": "node scripts/ai-task.mjs next",
-    "dev": "node scripts/dev.mjs",
+    "dev": "pnpm db:generate && pnpm --filter @tspec/db build && node scripts/dev.mjs",
     "build": "pnpm db:generate && pnpm -r --filter @tspec/db --filter @tspec/api --filter @tspec/web build",
     "typecheck": "pnpm db:generate && pnpm -r --filter @tspec/db --filter @tspec/api --filter @tspec/web typecheck",
     "db:generate": "pnpm --filter @tspec/db db:generate",

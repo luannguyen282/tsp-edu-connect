@@ -14,7 +14,7 @@
 ## PROFILE: schema-change
 - `pnpm db:generate`
 - `pnpm --filter @tspec/db exec prisma validate`
-- `pnpm db:migrate`
+- `pnpm db:push` for local proof, then `pnpm db:migrate` when the task creates a durable migration
 - `pnpm typecheck`
 
 ## PROFILE: runtime-smoke

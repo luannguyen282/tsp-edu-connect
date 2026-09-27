@@ -11,7 +11,7 @@ test-results/
 .data/*
 !.data/uploads/
 !.data/uploads/.gitkeep
-packages/db/generated/
+packages/db/src/generated/prisma/
 .DS_Store
 Thumbs.db
 .idea/
