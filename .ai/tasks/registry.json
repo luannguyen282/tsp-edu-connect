@@ -80,10 +80,15 @@
       "acceptanceCriteria": [
         "DATABASE_URL points to an existing reachable PostgreSQL database; Prisma generate and initial migration succeed."
       ],
-      "status": "TODO",
+      "status": "DONE",
       "owner": "ai",
-      "evidence": [],
-      "lastUpdatedAt": null
+      "evidence": [
+        {
+          "at": "2026-09-27T16:34:25.384Z",
+          "note": "Created the separate tspec database on the existing local tspec-postgres instance; db:check, Prisma generate, prisma validate, and db:push all succeeded."
+        }
+      ],
+      "lastUpdatedAt": "2026-09-27T16:34:25.384Z"
     },
     {
       "id": "TS-004",
