@@ -12,7 +12,7 @@ TSPEC is a center-first, multi-tenant education-center operations product.
 
 Canonical product authority: `docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md`.
 
-UX/screen reference: `docs/reference/tspec-prototype-v7.html` and `docs/product/UI_SURFACE_MAP.md`.
+UX/screen reference: `docs/reference/tspec-prototype.html` and `docs/product/UI_SURFACE_MAP.md`.
 
 Baseline non-goals:
 

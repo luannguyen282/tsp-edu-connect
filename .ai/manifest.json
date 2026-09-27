@@ -12,7 +12,7 @@
     ".ai/tasks/registry.json"
   ],
   "reference": [
-    "docs/reference/tspec-prototype-v7.html",
+    "docs/reference/tspec-prototype.html",
     "docs/reference/AI_WORKSPACE_BLUEPRINT.md"
   ]
 }

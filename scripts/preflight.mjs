@@ -50,7 +50,7 @@ const requiredFiles = [
   "AGENTS.md",
   ".ai/tasks/registry.json",
   "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md",
-  "docs/reference/tspec-prototype-v7.html",
+  "docs/reference/tspec-prototype.html",
   "apps/web/package.json",
   "apps/api/package.json",
   "packages/db/prisma/schema.prisma"

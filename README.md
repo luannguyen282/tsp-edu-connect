@@ -15,7 +15,7 @@ This baseline is intentionally a **modular monolith**:
 - no Redis/BullMQ, SMS, email provider, microservices, or Kubernetes in the initial baseline
 - focused smoke validation only; no unit-test suite/coverage target
 
-The durable product behavior is owned by `docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md`. The HTML prototype in `docs/reference/tspec-prototype-v7.html` is the UI/screen reference and must not override business rules.
+The durable product behavior is owned by `docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md`. The HTML prototype in `docs/reference/tspec-prototype.html` is the UI/screen reference and must not override business rules.
 
 ## Start here
 

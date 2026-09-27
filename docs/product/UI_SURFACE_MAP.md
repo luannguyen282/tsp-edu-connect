@@ -1,6 +1,6 @@
 # TSPEC UI Surface Map
 
-Source reference: `docs/reference/tspec-prototype-v7.html`.
+Source reference: `docs/reference/tspec-prototype.html`.
 
 This is a coverage map, not a second business specification. If prototype behavior conflicts with Business Rules, Business Rules win.
 

@@ -12,7 +12,7 @@ Read in this order before editing:
 Hard rules:
 
 - `docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md` owns product behavior.
-- `docs/reference/tspec-prototype-v7.html` owns screen coverage and visual intent where it does not conflict with business rules.
+- `docs/reference/tspec-prototype.html` owns screen coverage and visual intent where it does not conflict with business rules.
 - Never bypass `tenantId`, active workspace, scope, relationship, or permission checks.
 - Never log plaintext passwords, password hashes, tokens, or secrets.
 - No public self-signup unless product intent is explicitly changed. Baseline accounts are admin-provisioned.

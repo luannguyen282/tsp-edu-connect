@@ -16,7 +16,7 @@ Deliver the current Business Rules and designed workspace screens as a working l
 ## Intent authority
 
 - `docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md`
-- `docs/reference/tspec-prototype-v7.html`
+- `docs/reference/tspec-prototype.html`
 - current user constraints captured in `.ai/context/project.md`
 
 ## Scope
