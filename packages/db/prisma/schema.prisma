@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+}
+
+enum FirstLoginStatus {
+  PENDING
+  COMPLETED
+}
+
+enum IdentityProvider {
+  LOCAL
+  KEYCLOAK
+}
+
+enum TenantStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+enum MembershipStatus {
+  PENDING
+  ACTIVE
+  LEFT
+  REVOKED
+}
+
+enum WorkspaceType {
+  SYSTEM_ADMIN
+  TENANT_ADMIN
+  TEACHER
+  STUDENT
+  PARENT
+}
+
+enum AssetStorageProvider {
+  LOCAL
+  S3
+}
+
+enum AssetStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+model UserAccount {
+  id                    String           @id @default(cuid())
+  loginIdentifier       String           @unique
+  passwordHash          String?
+  identityProvider      IdentityProvider @default(LOCAL)
+  externalIssuer        String?
+  externalSubject       String?
+  status                AccountStatus    @default(ACTIVE)
+  firstLoginStatus      FirstLoginStatus @default(PENDING)
+  firstLoginCompletedAt DateTime?
+  passwordChangedAt     DateTime?
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+
+  tenantPersons TenantPerson[]
+  auditEvents   AuditEvent[] @relation("AuditActor")
+
+  @@unique([identityProvider, externalIssuer, externalSubject])
+}
+
+model Tenant {
+  id        String       @id @default(cuid())
+  code      String       @unique
+  name      String
+  status    TenantStatus @default(ACTIVE)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  people      TenantPerson[]
+  mediaAssets MediaAsset[]
+  auditEvents AuditEvent[]
+}
+
+model TenantPerson {
+  id          String  @id @default(cuid())
+  tenantId    String
+  accountId   String?
+  displayName String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant           Tenant            @relation(fields: [tenantId], references: [id])
+  account          UserAccount?      @relation(fields: [accountId], references: [id])
+  memberships      Membership[]
+  workspaceAccess  WorkspaceAccess[]
+
+  @@unique([tenantId, accountId])
+  @@index([tenantId])
+}
+
+model Membership {
+  id             String           @id @default(cuid())
+  tenantPersonId String
+  status         MembershipStatus @default(ACTIVE)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  tenantPerson TenantPerson @relation(fields: [tenantPersonId], references: [id])
+
+  @@index([tenantPersonId, status])
+}
+
+model WorkspaceAccess {
+  id             String        @id @default(cuid())
+  tenantPersonId String
+  workspaceType  WorkspaceType
+  enabled        Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  tenantPerson TenantPerson @relation(fields: [tenantPersonId], references: [id])
+
+  @@unique([tenantPersonId, workspaceType])
+}
+
+model MediaAsset {
+  id              String               @id @default(cuid())
+  tenantId        String
+  storageProvider AssetStorageProvider @default(LOCAL)
+  storageKey      String
+  originalName    String
+  mimeType        String
+  sizeBytes       Int
+  status          AssetStatus          @default(ACTIVE)
+  createdAt       DateTime             @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, storageProvider, storageKey])
+  @@index([tenantId, status])
+}
+
+model AuditEvent {
+  id             String         @id @default(cuid())
+  tenantId       String?
+  actorAccountId String?
+  workspaceType  WorkspaceType?
+  resourceType   String
+  resourceId     String?
+  action         String
+  metadata       Json?
+  createdAt      DateTime       @default(now())
+
+  tenant       Tenant?      @relation(fields: [tenantId], references: [id])
+  actorAccount UserAccount? @relation("AuditActor", fields: [actorAccountId], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([resourceType, resourceId])
+}

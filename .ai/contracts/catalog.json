@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "contracts": [
+    {
+      "id": "C-TENANCY",
+      "title": "Tenant isolation and active context",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#1-định-hướng-sản-phẩm",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-IDENTITY",
+      "title": "Global account, provisioning and first login",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#3-account-tenantperson-membership",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-AUTHZ",
+      "title": "Workspace/RBAC/scope authorization",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#21-roles--permissions",
+      "appliesTo": [
+        "api",
+        "web"
+      ]
+    },
+    {
+      "id": "C-CLASS",
+      "title": "Class lifecycle",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#7-class--lớp-môn-học-tại-trung-tâm",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-ENROLLMENT",
+      "title": "Parent enrollment and withdrawal",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#8-classenrollment-và-yêu-cầu-ghi-danh-của-phụ-huynh",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-SCHEDULING",
+      "title": "Class-centric schedule and synchronous session generation",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#12-scheduling--lịch-xuất-phát-từ-class",
+      "appliesTo": [
+        "api",
+        "db"
+      ]
+    },
+    {
+      "id": "C-ATTENDANCE",
+      "title": "Attendance and makeup",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#15-attendance",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-TUITION",
+      "title": "Tuition/payment baseline",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#17-tuition--học-phí-lớp",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-WORKLOAD",
+      "title": "Teacher workload",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#18-teacher-management--teaching-workload",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-RATING",
+      "title": "Class and teacher ratings",
+      "authority": "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md#19-rating--evaluation",
+      "appliesTo": [
+        "api",
+        "db",
+        "web"
+      ]
+    },
+    {
+      "id": "C-MEDIA",
+      "title": "Provider-neutral media references",
+      "authority": "docs/architecture/DATA_AND_INTEGRATIONS.md#file-storage-now-s3-later",
+      "appliesTo": [
+        "api",
+        "db"
+      ]
+    },
+    {
+      "id": "C-UI-COVERAGE",
+      "title": "Prototype screen coverage",
+      "authority": "docs/product/UI_SURFACE_MAP.md",
+      "appliesTo": [
+        "web"
+      ]
+    }
+  ]
+}

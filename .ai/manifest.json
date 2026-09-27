@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "activePlan": ".ai/plans/active/PLAN-001-TSPEC-BASELINE.md",
+  "taskRegistry": ".ai/tasks/registry.json",
+  "generated": [
+    ".ai/progress/current.md"
+  ],
+  "authoritative": [
+    "docs/product/TSPEC_BUSINESS_RULES_MASTER_V6.md",
+    ".ai/contracts/catalog.json",
+    ".ai/plans/active/PLAN-001-TSPEC-BASELINE.md",
+    ".ai/tasks/registry.json"
+  ],
+  "reference": [
+    "docs/reference/tspec-prototype-v7.html",
+    "docs/reference/AI_WORKSPACE_BLUEPRINT.md"
+  ]
+}

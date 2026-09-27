@@ -1,0 +1,917 @@
+{
+  "version": 1,
+  "planId": "PLAN-001-TSPEC-BASELINE",
+  "selectionPolicy": "lowest wave/order TODO whose dependencies are DONE",
+  "tasks": [
+    {
+      "id": "TS-001",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W0",
+      "title": "Verify developer environment",
+      "objective": "Preflight reports a usable Node/Git setup and classifies pnpm/PostgreSQL/Ponytail availability without reinstalling tools that already exist.",
+      "dependencies": [],
+      "likelyAreas": [
+        "scripts",
+        "README"
+      ],
+      "contracts": [],
+      "validationProfile": "preflight",
+      "acceptanceCriteria": [
+        "Preflight reports a usable Node/Git setup and classifies pnpm/PostgreSQL/Ponytail availability without reinstalling tools that already exist."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-002",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W0",
+      "title": "Enable pnpm and install workspace dependencies",
+      "objective": "pnpm matching packageManager is available and workspace dependencies install successfully.",
+      "dependencies": [
+        "TS-001"
+      ],
+      "likelyAreas": [
+        "package.json",
+        "pnpm-workspace.yaml"
+      ],
+      "contracts": [],
+      "validationProfile": "preflight",
+      "acceptanceCriteria": [
+        "pnpm matching packageManager is available and workspace dependencies install successfully."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-003",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W0",
+      "title": "Connect local PostgreSQL and apply bootstrap schema",
+      "objective": "DATABASE_URL points to an existing reachable PostgreSQL database; Prisma generate and initial migration succeed.",
+      "dependencies": [
+        "TS-001",
+        "TS-002"
+      ],
+      "likelyAreas": [
+        "packages/db",
+        ".env"
+      ],
+      "contracts": [
+        "C-TENANCY",
+        "C-IDENTITY",
+        "C-MEDIA"
+      ],
+      "validationProfile": "schema-change",
+      "acceptanceCriteria": [
+        "DATABASE_URL points to an existing reachable PostgreSQL database; Prisma generate and initial migration succeed."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-004",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W0",
+      "title": "Enable Ponytail for the active coding host",
+      "objective": "Ponytail is installed/enabled for the developer coding agent, or the environment is explicitly marked host-unsupported with the repository minimalism rules active.",
+      "dependencies": [
+        "TS-001"
+      ],
+      "likelyAreas": [
+        "scripts/setup-ponytail.mjs",
+        "AGENTS.md"
+      ],
+      "contracts": [],
+      "validationProfile": "docs-only",
+      "acceptanceCriteria": [
+        "Ponytail is installed/enabled for the developer coding agent, or the environment is explicitly marked host-unsupported with the repository minimalism rules active."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-005",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W0",
+      "title": "Boot web and API health locally",
+      "objective": "Next.js boot page and GET /health run locally with no business services required.",
+      "dependencies": [
+        "TS-002",
+        "TS-003"
+      ],
+      "likelyAreas": [
+        "apps/web",
+        "apps/api"
+      ],
+      "contracts": [],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Next.js boot page and GET /health run locally with no business services required."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-101",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W1",
+      "title": "Implement local authentication foundation",
+      "objective": "Local credential authentication uses UserAccount passwordHash, active account status and secure password hashing without changing tenant membership data.",
+      "dependencies": [
+        "TS-005"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/auth",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-IDENTITY"
+      ],
+      "validationProfile": "source-fast",
+      "acceptanceCriteria": [
+        "Local credential authentication uses UserAccount passwordHash, active account status and secure password hashing without changing tenant membership data."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-102",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W1",
+      "title": "Implement first-login password confirmation",
+      "objective": "A PENDING account must choose keep-current or change-password before tenant/workspace selection; completion is audited.",
+      "dependencies": [
+        "TS-101"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/auth",
+        "apps/web"
+      ],
+      "contracts": [
+        "C-IDENTITY"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "A PENDING account must choose keep-current or change-password before tenant/workspace selection; completion is audited."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-103",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W1",
+      "title": "Implement tenant and workspace context selection",
+      "objective": "Login continues through 0/1/many tenant and workspace selection rules and establishes active context.",
+      "dependencies": [
+        "TS-102"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/tenant-context",
+        "apps/web"
+      ],
+      "contracts": [
+        "C-TENANCY",
+        "C-IDENTITY",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Login continues through 0/1/many tenant and workspace selection rules and establishes active context."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-104",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W1",
+      "title": "Implement effective permission checks",
+      "objective": "Backend authorization evaluates active tenant, active workspace, effective permission and scope instead of hard-coding workspace role names.",
+      "dependencies": [
+        "TS-103"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/access-control",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-AUTHZ",
+        "C-TENANCY"
+      ],
+      "validationProfile": "security-smoke",
+      "acceptanceCriteria": [
+        "Backend authorization evaluates active tenant, active workspace, effective permission and scope instead of hard-coding workspace role names."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-105",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W1",
+      "title": "Implement Tenant Admin account provisioning",
+      "objective": "Tenant Admin can create TenantPerson and provision/link UserAccount atomically without invitation flow or password disclosure in logs.",
+      "dependencies": [
+        "TS-104"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/people",
+        "apps/api/src/modules/auth",
+        "apps/web"
+      ],
+      "contracts": [
+        "C-IDENTITY",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Tenant Admin can create TenantPerson and provision/link UserAccount atomically without invitation flow or password disclosure in logs."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-106",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W1",
+      "title": "Build role workspace shell and navigation",
+      "objective": "Web shell initializes the approved UI stack (Tailwind/shadcn as needed), renders only active-workspace navigation, and supports context switching with permission reload.",
+      "dependencies": [
+        "TS-103",
+        "TS-104"
+      ],
+      "likelyAreas": [
+        "apps/web"
+      ],
+      "contracts": [
+        "C-UI-COVERAGE",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Web shell initializes the approved UI stack (Tailwind/shadcn as needed), renders only active-workspace navigation, and supports context switching with permission reload."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-201",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W2",
+      "title": "Implement centers floors and rooms",
+      "objective": "Tenant Admin can manage organization nodes, floors and rooms; rooms remain tenant/center scoped.",
+      "dependencies": [
+        "TS-106"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/organizations",
+        "apps/api/src/modules/facilities",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-TENANCY"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Tenant Admin can manage organization nodes, floors and rooms; rooms remain tenant/center scoped."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-202",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W2",
+      "title": "Implement people teacher student parent relationships",
+      "objective": "Tenant people profiles support teacher type and active parent-child relationships required by later flows.",
+      "dependencies": [
+        "TS-105",
+        "TS-201"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/people",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-IDENTITY",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Tenant people profiles support teacher type and active parent-child relationships required by later flows."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-203",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W2",
+      "title": "Implement subjects with local cover-image storage",
+      "objective": "Tenant Admin can create/update/lifecycle subjects and upload optional cover images through MediaAsset using LOCAL storage keys.",
+      "dependencies": [
+        "TS-201"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/subjects",
+        "apps/api/src/modules/media",
+        "apps/web",
+        "packages/db",
+        ".data/uploads"
+      ],
+      "contracts": [
+        "C-MEDIA",
+        "C-TENANCY",
+        "C-UI-COVERAGE"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Tenant Admin can create/update/lifecycle subjects and upload optional cover images through MediaAsset using LOCAL storage keys."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-204",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W2",
+      "title": "Implement configurable roles permissions and audit views",
+      "objective": "Tenant Admin can manage baseline RBAC assignments safely and inspect append-only audit events with last-admin protection.",
+      "dependencies": [
+        "TS-104",
+        "TS-106"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/access-control",
+        "apps/api/src/modules/audit",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-AUTHZ"
+      ],
+      "validationProfile": "security-smoke",
+      "acceptanceCriteria": [
+        "Tenant Admin can manage baseline RBAC assignments safely and inspect append-only audit events with last-admin protection."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-301",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W3",
+      "title": "Implement class CRUD and lifecycle",
+      "objective": "Tenant Admin can create/update/start/complete classes under the documented lifecycle and validations.",
+      "dependencies": [
+        "TS-202",
+        "TS-203"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/classes",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-CLASS"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Tenant Admin can create/update/start/complete classes under the documented lifecycle and validations."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-302",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W3",
+      "title": "Implement teacher assignments",
+      "objective": "Classes can have valid teacher assignments used as the teaching authorization/scheduling scope.",
+      "dependencies": [
+        "TS-202",
+        "TS-301"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/classes",
+        "apps/api/src/modules/teachers",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-CLASS",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "source-fast",
+      "acceptanceCriteria": [
+        "Classes can have valid teacher assignments used as the teaching authorization/scheduling scope."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-303",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W3",
+      "title": "Implement parent catalog and enrollment applications",
+      "objective": "Parent Lớp học mới shows eligible classes/filters and supports one valid pending enrollment request per child/class.",
+      "dependencies": [
+        "TS-202",
+        "TS-301"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/enrollment",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-ENROLLMENT",
+        "C-UI-COVERAGE"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Parent Lớp học mới shows eligible classes/filters and supports one valid pending enrollment request per child/class."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-304",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W3",
+      "title": "Implement child classes and pre-start withdrawal",
+      "objective": "Parent Lớp học của con shows child-scoped application/enrollment state and supports documented pre-start withdrawal request lifecycle.",
+      "dependencies": [
+        "TS-303"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/enrollment",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-ENROLLMENT",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Parent Lớp học của con shows child-scoped application/enrollment state and supports documented pre-start withdrawal request lifecycle."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-401",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W4",
+      "title": "Implement holidays and reusable time slots",
+      "objective": "Tenant/center holidays and optional reusable time slots can be managed for scheduling input.",
+      "dependencies": [
+        "TS-201"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/scheduling",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-SCHEDULING"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Tenant/center holidays and optional reusable time slots can be managed for scheduling input."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-402",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W4",
+      "title": "Implement timetable rules conflicts and synchronous generation",
+      "objective": "Timetable rules validate class/teacher/room overlap and synchronously generate/reconcile idempotent TeachingSessions while skipping holidays.",
+      "dependencies": [
+        "TS-302",
+        "TS-401"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/scheduling",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-SCHEDULING"
+      ],
+      "validationProfile": "security-smoke",
+      "acceptanceCriteria": [
+        "Timetable rules validate class/teacher/room overlap and synchronously generate/reconcile idempotent TeachingSessions while skipping holidays."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-403",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W4",
+      "title": "Implement TeachingSession ad-hoc and class progress",
+      "objective": "TeachingSessions support documented types, ad-hoc creation, status/history protection and taught/planned progress including over-plan display data.",
+      "dependencies": [
+        "TS-402",
+        "TS-301"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/sessions",
+        "apps/api/src/modules/classes",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-SCHEDULING",
+        "C-CLASS"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "TeachingSessions support documented types, ad-hoc creation, status/history protection and taught/planned progress including over-plan display data."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-404",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W4",
+      "title": "Implement schedule screens for admin teacher student parent",
+      "objective": "Schedule views load real TeachingSession data with role/relationship scoping and teacher schedule remains read-only.",
+      "dependencies": [
+        "TS-403",
+        "TS-106",
+        "TS-304"
+      ],
+      "likelyAreas": [
+        "apps/web",
+        "apps/api/src/modules/sessions"
+      ],
+      "contracts": [
+        "C-UI-COVERAGE",
+        "C-AUTHZ",
+        "C-SCHEDULING"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Schedule views load real TeachingSession data with role/relationship scoping and teacher schedule remains read-only."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-501",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W5",
+      "title": "Implement teacher attendance",
+      "objective": "Authorized teachers can mark attendance for assigned sessions; attendance-linked history is protected from automatic rewrite.",
+      "dependencies": [
+        "TS-403",
+        "TS-104"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/attendance",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-ATTENDANCE"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Authorized teachers can mark attendance for assigned sessions; attendance-linked history is protected from automatic rewrite."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-502",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W5",
+      "title": "Implement student self check-in approval",
+      "objective": "Student self check-in creates pending attendance and assigned teacher can approve/reject it.",
+      "dependencies": [
+        "TS-501",
+        "TS-404"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/attendance",
+        "apps/web"
+      ],
+      "contracts": [
+        "C-ATTENDANCE",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Student self check-in creates pending attendance and assigned teacher can approve/reject it."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-503",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W5",
+      "title": "Implement class makeup",
+      "objective": "A canceled/rescheduled original session remains historical and a linked CLASS_MAKEUP can be scheduled with conflict checks.",
+      "dependencies": [
+        "TS-402",
+        "TS-501"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/makeup",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-ATTENDANCE",
+        "C-SCHEDULING"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "A canceled/rescheduled original session remains historical and a linked CLASS_MAKEUP can be scheduled with conflict checks."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-504",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W5",
+      "title": "Implement individual makeup",
+      "objective": "An eligible absent student can join a compatible session or dedicated individual makeup without changing source enrollment/progress incorrectly.",
+      "dependencies": [
+        "TS-502",
+        "TS-503"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/makeup",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-ATTENDANCE",
+        "C-ENROLLMENT"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "An eligible absent student can join a compatible session or dedicated individual makeup without changing source enrollment/progress incorrectly."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-601",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W6",
+      "title": "Implement tuition accounts and payment recording",
+      "objective": "Class tuition produces enrollment tuition state; permitted Tenant Admin can record payments/receipt references without accountant/cashier workspace.",
+      "dependencies": [
+        "TS-304",
+        "TS-204"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/tuition",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-TUITION",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Class tuition produces enrollment tuition state; permitted Tenant Admin can record payments/receipt references without accountant/cashier workspace."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-602",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W6",
+      "title": "Implement teacher monthly workload",
+      "objective": "Admin and allowed teacher views derive planned/completed sessions and planned/actual teaching minutes from TeachingSession data.",
+      "dependencies": [
+        "TS-403",
+        "TS-302"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/teacher-workload",
+        "apps/web"
+      ],
+      "contracts": [
+        "C-WORKLOAD"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Admin and allowed teacher views derive planned/completed sessions and planned/actual teaching minutes from TeachingSession data."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-603",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W6",
+      "title": "Implement class and teacher ratings",
+      "objective": "Class completion enables eligible student review; teacher ratings apply direct-over-derived precedence and documented default/derived behavior.",
+      "dependencies": [
+        "TS-301",
+        "TS-403"
+      ],
+      "likelyAreas": [
+        "apps/api/src/modules/ratings",
+        "apps/web",
+        "packages/db"
+      ],
+      "contracts": [
+        "C-RATING"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Class completion enables eligible student review; teacher ratings apply direct-over-derived precedence and documented default/derived behavior."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-701",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W7",
+      "title": "Implement system-admin overview tenant and security surfaces",
+      "objective": "SYSTEM_ADMIN global-only screens use real tenant/audit data and explicit tenant context where required.",
+      "dependencies": [
+        "TS-204",
+        "TS-106"
+      ],
+      "likelyAreas": [
+        "apps/web",
+        "apps/api/src/modules/system-admin"
+      ],
+      "contracts": [
+        "C-UI-COVERAGE",
+        "C-TENANCY",
+        "C-AUTHZ"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "SYSTEM_ADMIN global-only screens use real tenant/audit data and explicit tenant context where required."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-702",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W7",
+      "title": "Close prototype screen and dashboard coverage gaps",
+      "objective": "Every surface in UI_SURFACE_MAP is backed by real baseline data/action or explicitly documented as out of approved scope.",
+      "dependencies": [
+        "TS-404",
+        "TS-504",
+        "TS-601",
+        "TS-602",
+        "TS-603",
+        "TS-701"
+      ],
+      "likelyAreas": [
+        "apps/web",
+        "docs/product/UI_SURFACE_MAP.md"
+      ],
+      "contracts": [
+        "C-UI-COVERAGE"
+      ],
+      "validationProfile": "runtime-smoke",
+      "acceptanceCriteria": [
+        "Every surface in UI_SURFACE_MAP is backed by real baseline data/action or explicitly documented as out of approved scope."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-703",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W7",
+      "title": "Run focused end-to-end business smoke flows",
+      "objective": "Playwright/API smoke covers login-first-login-context, admin class setup/start, parent enrollment, schedule/attendance and completion/rating happy paths without building a deep test suite.",
+      "dependencies": [
+        "TS-702"
+      ],
+      "likelyAreas": [
+        "apps/web/e2e",
+        "apps/api"
+      ],
+      "contracts": [
+        "C-IDENTITY",
+        "C-ENROLLMENT",
+        "C-SCHEDULING",
+        "C-ATTENDANCE",
+        "C-RATING"
+      ],
+      "validationProfile": "release-smoke",
+      "acceptanceCriteria": [
+        "Playwright/API smoke covers login-first-login-context, admin class setup/start, parent enrollment, schedule/attendance and completion/rating happy paths without building a deep test suite."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "TS-704",
+      "planId": "PLAN-001-TSPEC-BASELINE",
+      "wave": "W7",
+      "title": "Finalize baseline build documentation and handoff",
+      "objective": "Type/build/schema/smoke validation is recorded and current progress/handoff accurately describe the runnable baseline and deferred integrations.",
+      "dependencies": [
+        "TS-703"
+      ],
+      "likelyAreas": [
+        "README.md",
+        ".ai/progress",
+        ".ai/validation",
+        "docs/architecture"
+      ],
+      "contracts": [],
+      "validationProfile": "release-smoke",
+      "acceptanceCriteria": [
+        "Type/build/schema/smoke validation is recorded and current progress/handoff accurately describe the runnable baseline and deferred integrations."
+      ],
+      "status": "TODO",
+      "owner": "ai",
+      "evidence": [],
+      "lastUpdatedAt": null
+    }
+  ]
+}

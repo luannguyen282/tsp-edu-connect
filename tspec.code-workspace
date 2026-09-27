@@ -1,0 +1,42 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": {
+    "files.exclude": {
+      "**/.next": true,
+      "**/dist": true,
+      "**/node_modules": true,
+      "packages/db/generated": true
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "TSPEC: preflight",
+        "type": "shell",
+        "command": "node scripts/preflight.mjs",
+        "problemMatcher": []
+      },
+      {
+        "label": "TSPEC: bootstrap",
+        "type": "shell",
+        "command": "node scripts/bootstrap.mjs",
+        "problemMatcher": []
+      },
+      {
+        "label": "TSPEC: dev",
+        "type": "shell",
+        "command": "pnpm dev",
+        "isBackground": true,
+        "problemMatcher": []
+      },
+      {
+        "label": "TSPEC: next AI task",
+        "type": "shell",
+        "command": "pnpm ai:next",
+        "problemMatcher": []
+      }
+    ]
+  }
+}
