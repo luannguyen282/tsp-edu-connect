@@ -12,6 +12,15 @@ function has(name) {
   }
 }
 
+function codexPonytailInstalled() {
+  try {
+    const plugins = execFileSync("codex", ["plugin", "list"], { encoding: "utf8" });
+    return /^ponytail@ponytail\s+installed, enabled/m.test(plugins);
+  } catch {
+    return false;
+  }
+}
+
 function runSafe(name, args) {
   console.log(`> ${name} ${args.join(" ")}`);
   try {
@@ -32,9 +41,13 @@ function showOrRun(name, args) {
 console.log("Ponytail is an AI coding-host plugin/skill, not a TSPEC runtime dependency.");
 
 if (has("codex")) {
-  showOrRun("codex", ["plugin", "marketplace", "add", "DietrichGebert/ponytail"]);
-  showOrRun("codex", ["plugin", "add", "ponytail@ponytail"]);
-  console.log("Codex: open /hooks, review/trust Ponytail hooks, then start a new thread.");
+  if (codexPonytailInstalled()) {
+    console.log("Codex Ponytail is already installed and enabled.");
+  } else {
+    showOrRun("codex", ["plugin", "marketplace", "add", "DietrichGebert/ponytail"]);
+    showOrRun("codex", ["plugin", "add", "ponytail@ponytail"]);
+    console.log("Codex: open /hooks, review/trust Ponytail hooks, then start a new thread.");
+  }
 } else if (has("copilot")) {
   showOrRun("copilot", ["plugin", "marketplace", "add", "DietrichGebert/ponytail"]);
   showOrRun("copilot", ["plugin", "install", "ponytail@ponytail"]);

@@ -108,10 +108,15 @@
       "acceptanceCriteria": [
         "Ponytail is installed/enabled for the developer coding agent, or the environment is explicitly marked host-unsupported with the repository minimalism rules active."
       ],
-      "status": "TODO",
+      "status": "DONE",
       "owner": "ai",
-      "evidence": [],
-      "lastUpdatedAt": null
+      "evidence": [
+        {
+          "at": "2026-09-27T16:35:15.308Z",
+          "note": "Verified Codex Ponytail 4.10.0 is installed and enabled; setup script now detects it and does not reinstall it."
+        }
+      ],
+      "lastUpdatedAt": "2026-09-27T16:35:15.308Z"
     },
     {
       "id": "TS-005",
