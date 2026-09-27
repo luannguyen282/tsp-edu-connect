@@ -137,10 +137,15 @@
       "acceptanceCriteria": [
         "Next.js boot page and GET /health run locally with no business services required."
       ],
-      "status": "TODO",
+      "status": "DONE",
       "owner": "ai",
-      "evidence": [],
-      "lastUpdatedAt": null
+      "evidence": [
+        {
+          "at": "2026-09-27T16:38:33.438Z",
+          "note": "Bootstrap, typecheck, and production build succeeded; pnpm dev served the web app on port 3000 and GET /health returned 200 from the API on port 3001."
+        }
+      ],
+      "lastUpdatedAt": "2026-09-27T16:38:33.438Z"
     },
     {
       "id": "TS-101",

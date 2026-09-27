@@ -5,9 +5,10 @@ if (existsSync(".env") && typeof process.loadEnvFile === "function") {
   process.loadEnvFile(".env");
 }
 
-const pnpm = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
 const args = ["-r", "--parallel", "--filter", "@tspec/api", "--filter", "@tspec/web", "dev"];
-const child = spawn(pnpm, args, { stdio: "inherit", env: process.env });
+const isWindows = process.platform === "win32";
+// pnpm is a .cmd shim on Windows and must run through cmd.exe.
+const child = spawn(isWindows ? (process.env.ComSpec ?? "cmd.exe") : "pnpm", isWindows ? ["/d", "/s", "/c", `pnpm ${args.join(" ")}`] : args, { stdio: "inherit", env: process.env });
 
 for (const signal of ["SIGINT", "SIGTERM"]) {
   process.on(signal, () => child.kill(signal));

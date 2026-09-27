@@ -2,8 +2,8 @@ import { execFileSync } from "node:child_process";
 import { copyFileSync, existsSync, readFileSync } from "node:fs";
 
 function execute(name, args, options) {
-  const isWindows = process.platform === "win32";
-  return execFileSync(isWindows ? (process.env.ComSpec ?? "cmd.exe") : name, isWindows ? ["/d", "/s", "/c", `${name} ${args.join(" ")}`] : args, options);
+  const useWindowsShell = process.platform === "win32" && !/\.exe$/i.test(name);
+  return execFileSync(useWindowsShell ? (process.env.ComSpec ?? "cmd.exe") : name, useWindowsShell ? ["/d", "/s", "/c", `${name} ${args.join(" ")}`] : args, options);
 }
 
 function has(name) {
