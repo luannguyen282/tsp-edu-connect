@@ -19,10 +19,15 @@
       "acceptanceCriteria": [
         "Preflight reports a usable Node/Git setup and classifies pnpm/PostgreSQL/Ponytail availability without reinstalling tools that already exist."
       ],
-      "status": "TODO",
+      "status": "DONE",
       "owner": "ai",
-      "evidence": [],
-      "lastUpdatedAt": null
+      "evidence": [
+        {
+          "at": "2026-09-27T16:28:03.540Z",
+          "note": "Preflight validates Node 24.18.0 and Git, recognizes pnpm 10.17.1 on Windows, classifies missing psql as remote-capable, and confirms Ponytail 4.10.0 enabled."
+        }
+      ],
+      "lastUpdatedAt": "2026-09-27T16:28:03.540Z"
     },
     {
       "id": "TS-002",
