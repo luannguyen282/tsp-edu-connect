@@ -1,9 +1,14 @@
 import { execFileSync } from "node:child_process";
 import { copyFileSync, existsSync, readFileSync } from "node:fs";
 
+function execute(name, args, options) {
+  const isWindows = process.platform === "win32";
+  return execFileSync(isWindows ? (process.env.ComSpec ?? "cmd.exe") : name, isWindows ? ["/d", "/s", "/c", `${name} ${args.join(" ")}`] : args, options);
+}
+
 function has(name) {
   try {
-    execFileSync(name, ["--version"], { stdio: "ignore" });
+    execute(name, ["--version"], { stdio: "ignore" });
     return true;
   } catch {
     return false;
@@ -13,7 +18,7 @@ function has(name) {
 function run(name, args, { optional = false } = {}) {
   console.log(`> ${name} ${args.join(" ")}`);
   try {
-    execFileSync(name, args, { stdio: "inherit" });
+    execute(name, args, { stdio: "inherit" });
     return true;
   } catch (error) {
     if (optional) {

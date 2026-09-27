@@ -47,10 +47,15 @@
       "acceptanceCriteria": [
         "pnpm matching packageManager is available and workspace dependencies install successfully."
       ],
-      "status": "TODO",
+      "status": "DONE",
       "owner": "ai",
-      "evidence": [],
-      "lastUpdatedAt": null
+      "evidence": [
+        {
+          "at": "2026-09-27T16:30:47.137Z",
+          "note": "Corepack provides pinned pnpm 10.17.1; workspace install completed and pnpm-lock.yaml was generated and validated with frozen-lockfile."
+        }
+      ],
+      "lastUpdatedAt": "2026-09-27T16:30:47.137Z"
     },
     {
       "id": "TS-003",
