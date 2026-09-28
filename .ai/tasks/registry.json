@@ -167,10 +167,15 @@
       "acceptanceCriteria": [
         "Local credential authentication uses UserAccount passwordHash, active account status and secure password hashing without changing tenant membership data."
       ],
-      "status": "TODO",
+      "status": "DONE",
       "owner": "ai",
-      "evidence": [],
-      "lastUpdatedAt": null
+      "evidence": [
+        {
+          "at": "2026-09-28T01:29:10.246Z",
+          "note": "Implemented local scrypt password hashing and credential login for active LOCAL accounts, with a short-lived signed bearer token and first-login status; typecheck and build succeeded."
+        }
+      ],
+      "lastUpdatedAt": "2026-09-28T01:29:10.246Z"
     },
     {
       "id": "TS-102",
